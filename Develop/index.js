@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const generateReadMe = require('./src/readme-template');
+const generateMarkdown = require('./utils/generateMarkdown');
 const { writeFile, copyFile } = require('./utils/generateMarkdown');
 // TODO: Create an array of questions for user input
 const mainQuestions = [       
@@ -223,13 +224,13 @@ const promptQ1 = mainData => {
     )
       .then(multiData => {
         mainData.questions.push(multiData);
-        if (multiData.confirmQ1) {
-            console.log(mainData)
-          return promptQ1(mainData);
-        } else {
+        // if (multiData.confirmQ1) {
+        //     console.log(mainData)
+        //   return promptQ1(mainData);
+        // } else {
           console.log(mainData)
           return mainData;
-        }
+        // }
       })
 
 };
@@ -387,6 +388,12 @@ const promptQ1 = mainData => {
 // Function call to initialize app
  init()
  .then(promptQ1)
+ .then(mainData => {
+    return generateMarkdown(mainData);
+ })
+ .then(readMe => {
+    console.log(readMe)
+ })
 //  .then(promptQ2)
 //  .then(promptQ3)
 //  .then(promptQ4)
