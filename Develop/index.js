@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 const generateReadMe = require('./src/readme-template');
 const { writeFile, copyFile } = require('./utils/generateMarkdown');
 // TODO: Create an array of questions for user input
-const questions = [
+const mainQuestions = [
         {
         type: 'input',
         name: 'title',
@@ -29,19 +29,31 @@ const questions = [
             return false;
           }
         }
+      }
+];
+
+const multiQ1 = [
+      {
+        type: 'confirm',
+        name: 'confirmInstallation',
+        message: 'Does your project require special instructions for installation?',
+        default: true
       },
-    //   {
-    //     type: 'confirm',
-    //     name: 'confirmInstallation',
-    //     message: 'Does your project require special instructions for installation?',
-    //     default: true
-    //   },
-    //   {
-    //     type: 'input',
-    //     name: 'installation',
-    //     message: 'What are the steps required to install your project?',
-    //     when: ({ confirmInstallation }) => confirmInstallation
-    //   },
+      {
+        type: 'input',
+        name: 'installation',
+        message: 'What are the steps required to install your project?',
+        when: ({ confirmInstallation }) => confirmInstallation
+      },
+      {
+        type: 'confirm',
+        name: 'confirmQ1',
+        message: 'Would you like to enter another step?',
+        default: false
+      }
+];
+
+
     //   {
     //     type: 'input',
     //     name: 'usage',
@@ -133,22 +145,45 @@ const questions = [
     //     when: ({ confirmContributing }) => confirmContributing
     // },
     //Need to loop for more than one test
-];
+
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}
 
 // TODO: Create a function to initialize app
-function init() {}
+//function init() {}
+const init = () => {
+    return inquirer.prompt(
+        mainQuestions
+     );
+}
+
+const promptQ1 = q1Data => {
+    console.log(`
+  =================
+  Add a New Step
+  =================
+  `);
+    // If there's no 'questions' array property, create one
+    if (!q1Data.questions1) {
+      q1Data.questions1 = [];
+    }
+    return inquirer.prompt(
+        multiQ1
+    )
+      .then(multiQ1Data => {
+        q1Data.questions1.push(multiQ1Data);
+        if (multiQ1Data.confirmQ1) {
+          return promptQ1(q1Data);
+        } else {
+          return q1Data;
+        }
+      });
+  };
+
 
 // Function call to initialize app
-init();
+init()
+ .then(promptQ1);
 
-console.log(questions)
-const mainQuestions = () => {
-    return inquirer.prompt(
-        questions
-     );
 
-}
-mainQuestions()
