@@ -45,16 +45,16 @@ const multiQ1 = [
         message: 'What are the steps required to install your project? \n',
         when: ({ confirmInstallation }) => confirmInstallation
       },
-      {
-        type: 'confirm',
-        name: 'confirmQ1',
-        message: 'Would you like to enter another step? \n',
-        when: ({ confirmInstallation }) => confirmInstallation,
-        default: false
-      }
-];
+    //   {
+    //     type: 'confirm',
+    //     name: 'confirmQ1',
+    //     message: 'Would you like to enter another step? \n',
+    //     when: ({ confirmInstallation }) => confirmInstallation,
+    //     default: false
+    //   }
+//];
 
-    const multiQ2 = [
+   // const multiQ2 = [
       {
         type: 'input',
         name: 'usage',
@@ -68,9 +68,9 @@ const multiQ1 = [
           }
         }
       },
-    ]    
+   // ]    
 
-    const multiQ3 = [
+  //  const multiQ3 = [
       {
         type: 'confirm',
         name: 'confirmCredits',
@@ -89,16 +89,16 @@ const multiQ1 = [
         message: 'Enter the git username of your collaborators or url of third-party assets: \n',
         when: ({ confirmCredits }) => confirmCredits
       },
-      {
-        type: 'confirm',
-        name: 'confirmQ3',
-        message: 'Would you like to enter another collaborator/asset? \n',
-        when: ({ confirmCredits }) => confirmCredits,
-        default: false
-      }
-    ]
+    //   {
+    //     type: 'confirm',
+    //     name: 'confirmQ3',
+    //     message: 'Would you like to enter another collaborator/asset? \n',
+    //     when: ({ confirmCredits }) => confirmCredits,
+    //     default: false
+    //   }
+   // ]
 
-    const multiQ4 = [
+   // const multiQ4 = [
         {
             type: 'confirm',
             name: 'confirmContributing',
@@ -111,9 +111,9 @@ const multiQ1 = [
             message: 'Add the guidelines you would like for them to follow: \n',
             when: ({ confirmContributing }) => confirmContributing
         },
-    ]
+  //  ]
 
-    const multiQ5 = [
+   // const multiQ5 = [
     {
         type: 'confirm',
         name: 'confirmFeatures',
@@ -126,9 +126,9 @@ const multiQ1 = [
         message: 'Enter key features of your project: \n',
         when: ({ confirmFeatures }) => confirmFeatures
     },
-    ]
+   // ]
 
-    const multiQ6 = [
+    //const multiQ6 = [
     {
         type: 'confirm',
         name: 'confirmTests',
@@ -141,9 +141,9 @@ const multiQ1 = [
         message: 'Provide examples on how to run them: \n',
         when: ({ confirmTests }) => confirmTests
     },
-    ]
+  //  ]
 
-    const multiQ7 = [
+   // const multiQ7 = [
     {
         type: 'checkbox',
         name: 'licenses',
@@ -152,7 +152,7 @@ const multiQ1 = [
         //https://img.shields.io/static/v1?label=<LABEL>&message=<MESSAGE>&color=<COLOR>
         //future if they select other to then ask which
     },
-    ]
+  //  ]
 
     //license needs to be a list when one is picked then it's made into a badge
     //it's also added to the license section
@@ -164,7 +164,7 @@ const multiQ1 = [
     // },
     // {
 
-    const multiQ8 = [
+  //  const multiQ8 = [
       {
         type: 'input',
         name: 'username',
@@ -211,190 +211,186 @@ const init = () => {
     ); 
  
 }
-
+//Only Q1 and Q3 could have multiple entries
 //Prompt for multiple steps in instructions
 const promptQ1 = mainData => {
-    console.log(`
-  =================
-  Installation
-  =================
-  `);
     // If there's no 'questions' array property, create one
-    if (!mainData.questions1) {
-        mainData.questions1 = [];
+    if (!mainData.questions) {
+        mainData.questions = [];
     }
     return inquirer.prompt(
         multiQ1
     )
-      .then(multiQ1Data => {
-        mainData.questions1.push(multiQ1Data);
-        if (multiQ1Data.confirmQ1) {
+      .then(multiData => {
+        mainData.questions.push(multiData);
+        if (multiData.confirmQ1) {
             console.log(mainData)
           return promptQ1(mainData);
         } else {
           console.log(mainData)
           return mainData;
         }
-      });
-  };
-//Prompt for multiple steps in instructions
+      })
 
-//For instruction right now it's not multiple input 
-//want to see if spaces can be used for multiple lines
-    const promptQ2 = mainData => {
-        console.log(`
-        =================
-        Usage
-        =================
-        `);
-        if (!mainData.questions2) {
-            mainData.questions2 = [];
-          }
-        return inquirer.prompt(
-            multiQ2
-        )
-        .then((q2Data) => {
-           mainData.questions2.push(q2Data);
-           console.log(mainData)
-           return mainData;  
-        })
-    }
+};
+// //Prompt for multiple steps in instructions
+
+// //For instruction right now it's not multiple input 
+// //want to see if spaces can be used for multiple lines
+//     const promptQ2 = mainData => {
+//         console.log(`
+//         =================
+//         Usage
+//         =================
+//         `);
+//         if (!mainData.questions2) {
+//             mainData.questions2 = [];
+//           }
+//         return inquirer.prompt(
+//             multiQ2
+//         )
+//         .then((q2Data) => {
+//            mainData.questions2.push(q2Data);
+//            console.log(mainData)
+//            return mainData;  
+//         })
+//     }
   
-//Prompt for multiple collabs
-const promptQ3 = mainData => {
-    console.log(mainData)
-    console.log(`
-  =================
-  Credits
-  =================
-  `);
-    // If there's no 'questions' array property, create one
-    if (!mainData.questions3) {
-        mainData.questions3 = [];
-    }
-    return inquirer.prompt(
-        multiQ3
-    )
-      .then(multiQ3Data => {
-        mainData.questions3.push(multiQ3Data);
-        if (multiQ3Data.confirmQ3) {
-            console.log(mainData)
-          return promptQ3(mainData);
-        } else {
-          console.log(mainData)
-          return mainData;
-        }
-      });
-  };
-//Prompt for multiple collabs
+// //Prompt for multiple collabs
+// const promptQ3 = mainData => {
+//     console.log(mainData)
+//     console.log(`
+//   =================
+//   Credits
+//   =================
+//   `);
+//     // If there's no 'questions' array property, create one
+//     if (!mainData.questions3) {
+//         mainData.questions3 = [];
+//     }
+//     return inquirer.prompt(
+//         multiQ3
+//     )
+//       .then(multiQ3Data => {
+//         mainData.questions3.push(multiQ3Data);
+//         if (multiQ3Data.confirmQ3) {
+//             console.log(mainData)
+//           return promptQ3(mainData);
+//         } else {
+//           console.log(mainData)
+//           return mainData;
+//         }
+//       });
+//   };
+// //Prompt for multiple collabs
 
-const promptQ4 = mainData => {
-    console.log(`
-    =================
-    Contributing
-    =================
-    `);
-    if (!mainData.questions4) {
-        mainData.questions4 = [];
-    }
-    return inquirer.prompt(
-        multiQ4
-    )
-    .then(q4Data => {
-        mainData.questions4.push(q4Data);
-        console.log(mainData)
-        return mainData; 
-    })
-}
+// const promptQ4 = mainData => {
+//     console.log(`
+//     =================
+//     Contributing
+//     =================
+//     `);
+//     if (!mainData.questions4) {
+//         mainData.questions4 = [];
+//     }
+//     return inquirer.prompt(
+//         multiQ4
+//     )
+//     .then(q4Data => {
+//         mainData.questions4.push(q4Data);
+//         console.log(mainData)
+//         return mainData; 
+//     })
+// }
 
-const promptQ5 = mainData => {
-    console.log(`
-  =================
-  Features
-  =================
-  `);    
-  if (!mainData.questions5) {
-    mainData.questions5 = [];
-}
-return inquirer.prompt(
-    multiQ5
-)
-.then(q5Data => {
-    mainData.questions5.push(q5Data);
-    console.log(mainData)
-    return mainData; 
-})
-}
+// const promptQ5 = mainData => {
+//     console.log(`
+//   =================
+//   Features
+//   =================
+//   `);    
+//   if (!mainData.questions5) {
+//     mainData.questions5 = [];
+// }
+// return inquirer.prompt(
+//     multiQ5
+// )
+// .then(q5Data => {
+//     mainData.questions5.push(q5Data);
+//     console.log(mainData)
+//     return mainData; 
+// })
+// }
 
-const promptQ6 = mainData => {
-    console.log(`
-    =================
-    Teststing
-    =================
-    `);
-    if (!mainData.questions6) {
-        mainData.questions6 = [];
-    }
-    return inquirer.prompt(
-        multiQ6
-    )
-    .then(multiQ6Data => {
-        mainData.questions6.push(multiQ6Data);
-          console.log(mainData)
-          return mainData;
-      });
-}
+// const promptQ6 = mainData => {
+//     console.log(`
+//     =================
+//     Teststing
+//     =================
+//     `);
+//     if (!mainData.questions6) {
+//         mainData.questions6 = [];
+//     }
+//     return inquirer.prompt(
+//         multiQ6
+//     )
+//     .then(multiQ6Data => {
+//         mainData.questions6.push(multiQ6Data);
+//           console.log(mainData)
+//           return mainData;
+//       });
+// }
 
-const promptQ7 = mainData => {
-    console.log(`
-  =================
-  License
-  =================
-  `);
-    // If there's no 'questions' array property, create one
-    if (!mainData.questions7) {
-        mainData.questions7 = [];
-    }
-    return inquirer.prompt(
-        multiQ7
-    )
-      .then(multiQ7Data => {
-        mainData.questions7.push(multiQ7Data);
-        console.log(multiQ7Data)
-        const {licenses} =  multiQ7Data
-        //later add logic for "other"
-            console.log(licenses)
-            console.log(mainData)
-          return mainData;
-      });
-  };
+// const promptQ7 = mainData => {
+//     console.log(`
+//   =================
+//   License
+//   =================
+//   `);
+//     // If there's no 'questions' array property, create one
+//     if (!mainData.questions7) {
+//         mainData.questions7 = [];
+//     }
+//     return inquirer.prompt(
+//         multiQ7
+//     )
+//       .then(multiQ7Data => {
+//         mainData.questions7.push(multiQ7Data);
+//         console.log(multiQ7Data)
+//         const {licenses} =  multiQ7Data
+//         //later add logic for "other"
+//             console.log(licenses)
+//             console.log(mainData)
+//           return mainData;
+//       });
+//   };
 
-  const promptQ8 = mainData => {
-    console.log(`
-  =================
-  Questions
-  =================
-  `);      
-  if (!mainData.questions8) {
-    mainData.questions8 = [];
-}
-return inquirer.prompt(
-    multiQ8
-)
-.then(q8Data => {
-    mainData.questions8.push(q8Data);
-    console.log(mainData)
-    return mainData; 
-})
-}
+//   const promptQ8 = mainData => {
+//     console.log(`
+//   =================
+//   Questions
+//   =================
+//   `);      
+//   if (!mainData.questions8) {
+//     mainData.questions8 = [];
+// }
+// return inquirer.prompt(
+//     multiQ8
+// )
+// .then(q8Data => {
+//     mainData.questions8.push(q8Data);
+//     console.log(mainData)
+//     return mainData; 
+// })
+// }
 
 // Function call to initialize app
  init()
  .then(promptQ1)
- .then(promptQ2)
- .then(promptQ3)
- .then(promptQ4)
- .then(promptQ5)
- .then(promptQ6)
- .then(promptQ7)
- .then(promptQ8)
+//  .then(promptQ2)
+//  .then(promptQ3)
+//  .then(promptQ4)
+//  .then(promptQ5)
+//  .then(promptQ6)
+//  .then(promptQ7)
+//  .then(promptQ8)
