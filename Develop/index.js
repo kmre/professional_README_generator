@@ -3,8 +3,8 @@ const inquirer = require('inquirer');
 const generateReadMe = require('./src/readme-template');
 const { writeFile, copyFile } = require('./utils/generateMarkdown');
 // TODO: Create an array of questions for user input
-const mainQuestions = [
-        {
+const mainQuestions = [       
+      {
         type: 'input',
         name: 'title',
         message: 'What is the Title of your README file? (Required)',
@@ -98,6 +98,64 @@ const multiQ1 = [
       }
     ]
 
+    const multiQ4 = [
+        {
+            type: 'confirm',
+            name: 'confirmContributing',
+            message: 'Do you want other developers to contribute to your application?',
+            default: true
+        },
+        {
+            type: 'input',
+            name: 'contributing',
+            message: 'Add the guidelines you would like for them to follow',
+            when: ({ confirmContributing }) => confirmContributing
+        },
+    ]
+
+    const multiQ5 = [
+    {
+        type: 'confirm',
+        name: 'confirmFeatures',
+        message: 'Do you want to add any features to you README file?',
+        default: true
+    },
+    {
+        type: 'input',
+        name: 'features',
+        message: 'Enter key features of your project',
+        when: ({ confirmFeatures }) => confirmFeatures
+    },
+    ]
+
+    const multiQ6 = [
+    {
+        type: 'confirm',
+        name: 'confirmTests',
+        message: 'Do you want other developers to test your application or do you have examples of tests you have performed?',
+        default: true
+    },
+    {
+        type: 'input',
+        name: 'tests',
+        message: 'Provide examples on how to run them',
+        when: ({ confirmContributing }) => confirmContributing
+    },
+    ]
+
+    const multiQ7 = [
+    {
+        type: 'checkbox',
+        name: 'licenses',
+        message: 'What licenses did you use? (Check all that apply)',
+        choices: ['MIT', 'Apache', 'GPL', 'BSD', 'Apache 2', 'Other']
+        //https://img.shields.io/static/v1?label=<LABEL>&message=<MESSAGE>&color=<COLOR>
+        //future if they select other to then ask which
+    },
+    ]
+
+    //license needs to be a list when one is picked then it's made into a badge
+    //it's also added to the license section
     // {
     //     type: 'confirm',
     //     name: 'confirmLicense',
@@ -123,44 +181,32 @@ const multiQ1 = [
     //     when: ({ confirmBadge }) => confirmBadge
     // },
     // //Need to loop through more than 1 feature
-    // {
-    //     type: 'confirm',
-    //     name: 'confirmFeatures',
-    //     message: 'Do you want to add any features to you README file?',
-    //     default: true
-    // },
-    // {
+
     //     type: 'input',
-    //     name: 'features',
-    //     message: 'Enter key features of your project',
-    //     when: ({ confirmFeatures }) => confirmFeatures
-    // },
-    // //Need to loop through more than 1 feature
-    // {
-    //     type: 'confirm',
-    //     name: 'confirmContributing',
-    //     message: 'Do you want other developers to contribute to your application?',
-    //     default: true
-    // },
-    // {
+    //     name: 'username',
+    //     message: 'What is your GitHub username? (Required)',
+    //     validate: nameInput => {
+    //       if (nameInput) {
+    //         return true;
+    //       } else {
+    //         console.log('Please enter your username!');
+    //         return false;
+    //       }
+    //     }
+    //   },    
+    //   {
     //     type: 'input',
-    //     name: 'contributing',
-    //     message: 'Add the guidelines you would like for them to follow',
-    //     when: ({ confirmContributing }) => confirmContributing
-    // },
-    // //Need to loop for more than one test
-    // {
-    //     type: 'confirm',
-    //     name: 'confirmTests',
-    //     message: 'Do you want other developers to test your application or do you have examples of tests you have performed?',
-    //     default: true
-    // },
-    // {
-    //     type: 'input',
-    //     name: 'tests',
-    //     message: 'Provide examples on how to run them',
-    //     when: ({ confirmContributing }) => confirmContributing
-    // },
+    //     name: 'email',
+    //     message: 'What is your email address? (Required)',
+    //     validate: nameInput => {
+    //       if (nameInput) {
+    //         return true;
+    //       } else {
+    //         console.log('Please enter your email address!');
+    //         return false;
+    //       }
+    //     }
+    //   },
     //Need to loop for more than one test
 
 // TODO: Create a function to write README file
@@ -200,7 +246,8 @@ const promptQ1 = q1Data => {
   };
 //Prompt for multiple steps in instructions
 
-
+//For instruction right now it's not multiple input 
+//want to see if spaces can be used for multiple lines
     const promptQ2 = () => {
         return inquirer.prompt(
             multiQ2
@@ -233,12 +280,55 @@ const promptQ3 = q3Data => {
   };
 //Prompt for multiple collabs
 
+const promptQ4 = () => {
+    return inquirer.prompt(
+        multiQ4
+    ); 
+}
+
+const promptQ5 = () => {
+    return inquirer.prompt(
+        multiQ5
+    ); 
+}
+
+const promptQ6 = () => {
+    return inquirer.prompt(
+        multiQ6
+    ); 
+}
+
+const promptQ7 = q7Data => {
+    console.log(`
+  =================
+  Add a New Step
+  =================
+  `);
+    // If there's no 'questions' array property, create one
+    if (!q7Data.questions7) {
+      q7Data.questions7 = [];
+    }
+    return inquirer.prompt(
+        multiQ7
+    )
+      .then(multiQ7Data => {
+        q7Data.questions7.push(multiQ7Data);
+
+        const {licenses} =  multiQ7Data
+        //later add logic for "other"
+            console.log(licenses)
+          return licenses;
+      });
+  };
 
 
 // Function call to initialize app
-init()
- .then(promptQ1)
- .then(promptQ2)
- .then(promptQ3)
-
+ init()
+//  .then(promptQ1)
+//  .then(promptQ2)
+//  .then(promptQ3)
+//  .then(promptQ4)
+//  .then(promptQ5)
+//  .then(promptQ6)
+  .then(promptQ7)
 
