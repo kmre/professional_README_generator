@@ -41,7 +41,7 @@ const multiQ1 = [
       },
       {
         type: 'input',
-        name: 'installation',
+        name: 'installationStep',
         message: 'What are the steps required to install your project? \n',
         when: ({ confirmInstallation }) => confirmInstallation
       },
@@ -139,7 +139,7 @@ const multiQ1 = [
         type: 'input',
         name: 'tests',
         message: 'Provide examples on how to run them: \n',
-        when: ({ confirmContributing }) => confirmContributing
+        when: ({ confirmTests }) => confirmTests
     },
     ]
 
@@ -206,32 +206,34 @@ const init = () => {
     Title and Description
     =================
     `);
-    return inquirer.prompt(
+    return inquirer.prompt(   
         mainQuestions
     ); 
+ 
 }
 
 //Prompt for multiple steps in instructions
-const promptQ1 = q1Data => {
+const promptQ1 = mainData => {
     console.log(`
   =================
   Installation
   =================
   `);
     // If there's no 'questions' array property, create one
-    if (!q1Data.questions1) {
-      q1Data.questions1 = [];
+    if (!mainData.questions1) {
+        mainData.questions1 = [];
     }
     return inquirer.prompt(
         multiQ1
     )
       .then(multiQ1Data => {
-        q1Data.questions1.push(multiQ1Data);
+        mainData.questions1.push(multiQ1Data);
         if (multiQ1Data.confirmQ1) {
-            console.log(q1Data)
-          return promptQ1(q1Data);
+            console.log(mainData)
+          return promptQ1(mainData);
         } else {
-          return q1Data;
+          console.log(mainData)
+          return mainData;
         }
       });
   };
@@ -239,110 +241,152 @@ const promptQ1 = q1Data => {
 
 //For instruction right now it's not multiple input 
 //want to see if spaces can be used for multiple lines
-    const promptQ2 = () => {
+    const promptQ2 = mainData => {
         console.log(`
         =================
         Usage
         =================
         `);
+        if (!mainData.questions2) {
+            mainData.questions2 = [];
+          }
         return inquirer.prompt(
             multiQ2
-        ); 
+        )
+        .then((q2Data) => {
+           mainData.questions2.push(q2Data);
+           console.log(mainData)
+           return mainData;  
+        })
     }
   
 //Prompt for multiple collabs
-const promptQ3 = q3Data => {
+const promptQ3 = mainData => {
+    console.log(mainData)
     console.log(`
   =================
   Credits
   =================
   `);
     // If there's no 'questions' array property, create one
-    if (!q3Data.questions3) {
-      q3Data.questions3 = [];
+    if (!mainData.questions3) {
+        mainData.questions3 = [];
     }
     return inquirer.prompt(
         multiQ3
     )
       .then(multiQ3Data => {
-        q3Data.questions3.push(multiQ3Data);
+        mainData.questions3.push(multiQ3Data);
         if (multiQ3Data.confirmQ3) {
-            console.log(q3Data)
-          return promptQ3(q3Data);
+            console.log(mainData)
+          return promptQ3(mainData);
         } else {
-          return q3Data;
+          console.log(mainData)
+          return mainData;
         }
       });
   };
 //Prompt for multiple collabs
 
-const promptQ4 = () => {
+const promptQ4 = mainData => {
     console.log(`
     =================
     Contributing
     =================
     `);
+    if (!mainData.questions4) {
+        mainData.questions4 = [];
+    }
     return inquirer.prompt(
         multiQ4
-    ); 
+    )
+    .then(q4Data => {
+        mainData.questions4.push(q4Data);
+        console.log(mainData)
+        return mainData; 
+    })
 }
 
-const promptQ5 = () => {
+const promptQ5 = mainData => {
     console.log(`
   =================
   Features
   =================
   `);    
-    return inquirer.prompt(
-        multiQ5
-    ); 
+  if (!mainData.questions5) {
+    mainData.questions5 = [];
+}
+return inquirer.prompt(
+    multiQ5
+)
+.then(q5Data => {
+    mainData.questions5.push(q5Data);
+    console.log(mainData)
+    return mainData; 
+})
 }
 
-const promptQ6 = () => {
+const promptQ6 = mainData => {
     console.log(`
     =================
     Teststing
     =================
     `);
+    if (!mainData.questions6) {
+        mainData.questions6 = [];
+    }
     return inquirer.prompt(
         multiQ6
-    ); 
+    )
+    .then(multiQ6Data => {
+        mainData.questions6.push(multiQ6Data);
+          console.log(mainData)
+          return mainData;
+      });
 }
 
-const promptQ7 = q7Data => {
+const promptQ7 = mainData => {
     console.log(`
   =================
   License
   =================
   `);
     // If there's no 'questions' array property, create one
-    if (!q7Data.questions7) {
-      q7Data.questions7 = [];
+    if (!mainData.questions7) {
+        mainData.questions7 = [];
     }
     return inquirer.prompt(
         multiQ7
     )
       .then(multiQ7Data => {
-        q7Data.questions7.push(multiQ7Data);
-
+        mainData.questions7.push(multiQ7Data);
+        console.log(multiQ7Data)
         const {licenses} =  multiQ7Data
         //later add logic for "other"
             console.log(licenses)
-          return licenses;
+            console.log(mainData)
+          return mainData;
       });
   };
 
-  const promptQ8 = () => {
+  const promptQ8 = mainData => {
     console.log(`
   =================
   Questions
   =================
   `);      
-    return inquirer.prompt(
-        multiQ8
-    ); 
+  if (!mainData.questions8) {
+    mainData.questions8 = [];
 }
-
+return inquirer.prompt(
+    multiQ8
+)
+.then(q8Data => {
+    mainData.questions8.push(q8Data);
+    console.log(mainData)
+    return mainData; 
+})
+}
 
 // Function call to initialize app
  init()
