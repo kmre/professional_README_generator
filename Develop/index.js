@@ -49,38 +49,55 @@ const multiQ1 = [
         type: 'confirm',
         name: 'confirmQ1',
         message: 'Would you like to enter another step?',
+        when: ({ confirmInstallation }) => confirmInstallation,
         default: false
       }
 ];
 
+    const multiQ2 = [
+      {
+        type: 'input',
+        name: 'usage',
+        message: 'Please provide instructions and examples for use. (Required)',
+        validate: nameInput => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log('Please enter a short list of instructions and uses!');
+            return false;
+          }
+        }
+      },
+    ]    
 
-    //   {
-    //     type: 'input',
-    //     name: 'usage',
-    //     message: 'Please provide instructions and examples for use. (Required)',
-    //     validate: nameInput => {
-    //       if (nameInput) {
-    //         return true;
-    //       } else {
-    //         console.log('Please enter a short list of instructions and uses!');
-    //         return false;
-    //       }
-    //     }
-    //   },
-    // //   Need to add a way to enter more than one colaborator
-    //   {
-    //     type: 'confirm',
-    //     name: 'confirmCredits',
-    //     message: 'Do you want to add any collaborators or did you use any third-party assets you want to credit?',
-    //     default: true
-    //   },
-    //   {
-    //     type: 'input',
-    //     name: 'credits',
-    //     message: 'Enter the names of your collaborators?',
-    //     when: ({ confirmCredits }) => confirmCredits
-    //   },
-    // //   Need to add a way to enter more than one colaborator
+    const multiQ3 = [
+      {
+        type: 'confirm',
+        name: 'confirmCredits',
+        message: 'Do you want to add any collaborators or did you use any third-party assets you want to credit?',
+        default: true
+      },
+      {
+        type: 'input',
+        name: 'credits-name',
+        message: 'Enter the names of your collaborators or third-party assets',
+        when: ({ confirmCredits }) => confirmCredits
+      },
+      {
+        type: 'input',
+        name: 'credits-git',
+        message: 'Enter the git username of your collaborators or url of third-party assets',
+        when: ({ confirmCredits }) => confirmCredits
+      },
+      {
+        type: 'confirm',
+        name: 'confirmQ3',
+        message: 'Would you like to enter another collaborator/asset?',
+        when: ({ confirmCredits }) => confirmCredits,
+        default: false
+      }
+    ]
+
     // {
     //     type: 'confirm',
     //     name: 'confirmLicense',
@@ -146,7 +163,6 @@ const multiQ1 = [
     // },
     //Need to loop for more than one test
 
-
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}
 
@@ -155,9 +171,10 @@ function writeToFile(fileName, data) {}
 const init = () => {
     return inquirer.prompt(
         mainQuestions
-     );
+    ); 
 }
 
+//Prompt for multiple steps in instructions
 const promptQ1 = q1Data => {
     console.log(`
   =================
@@ -174,16 +191,54 @@ const promptQ1 = q1Data => {
       .then(multiQ1Data => {
         q1Data.questions1.push(multiQ1Data);
         if (multiQ1Data.confirmQ1) {
+            console.log(q1Data)
           return promptQ1(q1Data);
         } else {
           return q1Data;
         }
       });
   };
+//Prompt for multiple steps in instructions
+
+
+    const promptQ2 = () => {
+        return inquirer.prompt(
+            multiQ2
+        ); 
+    }
+  
+//Prompt for multiple collabs
+const promptQ3 = q3Data => {
+    console.log(`
+  =================
+  Add a New Step
+  =================
+  `);
+    // If there's no 'questions' array property, create one
+    if (!q3Data.questions3) {
+      q3Data.questions3 = [];
+    }
+    return inquirer.prompt(
+        multiQ3
+    )
+      .then(multiQ3Data => {
+        q3Data.questions3.push(multiQ3Data);
+        if (multiQ3Data.confirmQ3) {
+            console.log(q3Data)
+          return promptQ3(q3Data);
+        } else {
+          return q3Data;
+        }
+      });
+  };
+//Prompt for multiple collabs
+
 
 
 // Function call to initialize app
 init()
- .then(promptQ1);
+ .then(promptQ1)
+ .then(promptQ2)
+ .then(promptQ3)
 
 
