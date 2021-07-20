@@ -1,27 +1,42 @@
 const genInstallation = (questions) => {
-    console.log(questions)
+  //console.log(questions)
+  // vv if yes on special instructions for installation
+  if (`${questions.filter(({confirmInstallation}) => confirmInstallation)}`){
     return `
-      ${questions
-        .filter(({ confirmInstallation }) => confirmInstallation)
-        .map(({ usage, email}) => {
-          return `
-            ${usage}
-            ${email}
-        `;
-        })
-        }
-
-      ${questions
-        .filter(({ confirmInstallation }) => !confirmInstallation)
-        .map(({ name, description, languages, link }) => {
-
-          return `
-          ""
-        `;
-        })
-        }
-  `;
+    ${questions
+       .map(({installationStep}) => {
+         return `${installationStep}`;})
+       }`
+  }
+  return ``
 }
+
+
+// const genInstallation = (questions) => {
+//     console.log(questions)
+//     // vv if yes on special instructions for installation
+//     return `
+//       ${questions
+//         .filter(({confirmInstallation}) => confirmInstallation)
+//         .map(({usage, email}) => {
+//           return `
+//             ${usage}
+//             ${email}
+//         `;
+//         })
+//         }
+
+//       ${questions
+//         .filter(({confirmInstallation}) => !confirmInstallation)
+//         .map(({  }) => {
+
+//           return `
+//         `;
+//         })
+//         }
+//   `;
+//         //^^ if no on special instructions for installation
+// }
 
 module.exports = markData => {
   const {title, description, questions} = markData;

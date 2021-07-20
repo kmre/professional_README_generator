@@ -72,7 +72,7 @@ const multiQ1 = [
    // ]    
 
   //  const multiQ3 = [
-      {
+     /* {
         type: 'confirm',
         name: 'confirmCredits',
         message: 'Do you want to add any collaborators or did you use any third-party assets you want to credit? \n',
@@ -89,7 +89,7 @@ const multiQ1 = [
         name: 'creditsGit',
         message: 'Enter the git username of your collaborators or url of third-party assets: \n',
         when: ({ confirmCredits }) => confirmCredits
-      },
+      },*/
     //   {
     //     type: 'confirm',
     //     name: 'confirmQ3',
@@ -100,7 +100,7 @@ const multiQ1 = [
    // ]
 
    // const multiQ4 = [
-        {
+       /* {
             type: 'confirm',
             name: 'confirmContributing',
             message: 'Do you want other developers to contribute to your application? \n',
@@ -111,11 +111,11 @@ const multiQ1 = [
             name: 'contributing',
             message: 'Add the guidelines you would like for them to follow: \n',
             when: ({ confirmContributing }) => confirmContributing
-        },
+        },*/
   //  ]
 
    // const multiQ5 = [
-    {
+    /*{
         type: 'confirm',
         name: 'confirmFeatures',
         message: 'Do you want to add any features to you README file? \n',
@@ -126,11 +126,11 @@ const multiQ1 = [
         name: 'features',
         message: 'Enter key features of your project: \n',
         when: ({ confirmFeatures }) => confirmFeatures
-    },
+    },*/
    // ]
 
     //const multiQ6 = [
-    {
+    /*{
         type: 'confirm',
         name: 'confirmTests',
         message: 'Do you want other developers to test your application or do you have examples of tests you have performed? \n',
@@ -141,18 +141,18 @@ const multiQ1 = [
         name: 'tests',
         message: 'Provide examples on how to run them: \n',
         when: ({ confirmTests }) => confirmTests
-    },
+    },*/
   //  ]
 
    // const multiQ7 = [
-    {
+    /*{
         type: 'checkbox',
         name: 'licenses',
         message: 'What licenses did you use? (Check all that apply)',
         choices: ['MIT', 'Apache', 'GPL', 'BSD', 'Apache 2', 'Other']
         //https://img.shields.io/static/v1?label=<LABEL>&message=<MESSAGE>&color=<COLOR>
         //future if they select other to then ask which
-    },
+    },*/
   //  ]
 
     //license needs to be a list when one is picked then it's made into a badge
@@ -393,6 +393,7 @@ const promptQ1 = mainData => {
     return generateMarkdown(mainData);
  })
  .then(readMe => {
+   console.log("readme: ")
     console.log(readMe)
  })
 //  .then(promptQ2)
