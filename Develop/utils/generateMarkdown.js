@@ -1,30 +1,34 @@
-const genInstallation = (install) => {
+const genInstallation = (questions) => {
+    console.log(questions)
+    return `
+      ${questions
+        .filter(({ confirmInstallation }) => confirmInstallation)
+        .map(({ usage, email}) => {
+          return `
+            ${usage}
+            ${email}
+        `;
+        })
+        }
 
-  if (!install){
-    return '';
-  }
-  return `${questions.installationStep}`
+      ${questions
+        .filter(({ confirmInstallation }) => !confirmInstallation)
+        .map(({ name, description, languages, link }) => {
+
+          return `
+          ""
+        `;
+        })
+        }
+  `;
 }
 
+module.exports = markData => {
+  const {title, description, questions} = markData;
 
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
-function renderLicenseBadge(license) {}
+  console.log("Questions: ")
+  console.log(questions)
 
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-function renderLicenseLink(license) {}
-
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
-function renderLicenseSection(license) {}
-
-// TODO: Create a function to generate markdown for README
-const generateMarkdown = markData => {
-  const {title, description, ...questions} = markData;
- // console.log(markData)
-  //console.log(title)
-  
   return `
   # ${title}
 
@@ -41,26 +45,27 @@ const generateMarkdown = markData => {
   * [Credits](#credits)
   * [License](#license)
   * [Questions](#questions)
-  
-  ## Installation
-  ${genInstallation(questions.confirmInstallation)}
 
-  ## Usage
+   ## Installation
+   ${genInstallation(questions)}
 
-  ## Contributing
+  // ## Usage
+  // 
 
-  ## Tests
+  // ## Contributing
+  //
 
-  ## Features
+  // ## Tests
+  // 
 
-  ## Credits
+  // ## Features
+  //
 
-  ## License
+  // ## Credits
 
-  ## Questions
+  // ## License
 
+  // ## Questions
 
 `;
-}
-
-module.exports = generateMarkdown;
+};

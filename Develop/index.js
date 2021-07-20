@@ -80,13 +80,13 @@ const multiQ1 = [
       },
       {
         type: 'input',
-        name: 'credits-name',
+        name: 'creditsName',
         message: 'Enter the names of your collaborators or third-party assets: \n',
         when: ({ confirmCredits }) => confirmCredits
       },
       {
         type: 'input',
-        name: 'credits-git',
+        name: 'creditsGit',
         message: 'Enter the git username of your collaborators or url of third-party assets: \n',
         when: ({ confirmCredits }) => confirmCredits
       },
@@ -228,7 +228,7 @@ const promptQ1 = mainData => {
         //     console.log(mainData)
         //   return promptQ1(mainData);
         // } else {
-          console.log(mainData)
+          //console.log(mainData)
           return mainData;
         // }
       })
@@ -389,6 +389,7 @@ const promptQ1 = mainData => {
  init()
  .then(promptQ1)
  .then(mainData => {
+     //console.log(mainData)
     return generateMarkdown(mainData);
  })
  .then(readMe => {
