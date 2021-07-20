@@ -1,4 +1,5 @@
 // TODO: Include packages needed for this application
+
 const inquirer = require('inquirer');
 const generateReadMe = require('./src/readme-template');
 const generateMarkdown = require('./utils/generateMarkdown');
@@ -21,7 +22,8 @@ const mainQuestions = [
       {
         type: 'input',
         name: 'description',
-        message: 'Please enter a short description explaining the what, why, and how of your project (Required) \n',
+        message: 'Please enter a short description explaining the what, why, and how of your project (Required) \n' +
+        'If you want to start a new paragraph just type "/n" \n',
         validate: nameInput => {
           if (nameInput) {
             return true;
@@ -43,7 +45,8 @@ const multiQ1 = [
       {
         type: 'input',
         name: 'installationStep',
-        message: 'What are the steps required to install your project? \n',
+        message: 'What are the steps required to install your project? \n' +
+        'If you want to start a new step just type "/n" \n',
         when: ({ confirmInstallation }) => confirmInstallation
       },
     //   {

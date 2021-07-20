@@ -1,14 +1,25 @@
+var align = require("align-text")
+
 const genInstallation = (questions) => {
-  //console.log(questions)
-  // vv if yes on special instructions for installation
-  if (`${questions.filter(({confirmInstallation}) => confirmInstallation)}`){
-    return `
-    ${questions
-       .map(({installationStep}) => {
-         return `${installationStep}`;})
-       }`
-  }
-  return ``
+//console.log(questions)
+// vv if yes on special instructions for installation
+if (`${questions.filter(({confirmInstallation}) => confirmInstallation)}`){
+return `
+${questions
+.map(({installationStep}) => {
+let steps = "";
+//let newInstStep = installationStep.replace(/\/n /gi, "\n");
+let newInstStep2 = installationStep.split("/n");
+newInstStep2.forEach( (item, index) => {
+steps += (index + 1) + ". " + item.trim() + '\n'
+console.log(steps)
+})
+let installSteps = align(steps, 3);
+return `${installSteps}`
+;})
+}`
+}
+return ``
 }
 
 
@@ -39,48 +50,49 @@ const genInstallation = (questions) => {
 // }
 
 module.exports = markData => {
-  const {title, description, questions} = markData;
+const {title, description, questions} = markData;
+console.log("Questions: ")
+console.log(questions)
+let newTitle = align(title, 0)
+let newDescription = align(description.replace(/\/n /gi, "\n\n"), 3);
 
-  console.log("Questions: ")
-  console.log(questions)
+return `
+# ${newTitle}
 
-  return `
-  # ${title}
+## Description
+${newDescription}
 
-  ## Description
-  ${description}
+## Table of Contents
 
-  ## Table of Contents
+* [Installation](#installation)
+* [Usage](#usage)
+* [Contributing](#contributing)
+* [Tests](#tests)
+* [Features](#features)
+* [Credits](#credits)
+* [License](#license)
+* [Questions](#questions)
 
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [Contributing](#contributing)
-  * [Tests](#tests)
-  * [Features](#features)
-  * [Credits](#credits)
-  * [License](#license)
-  * [Questions](#questions)
+## Installation
+${genInstallation(questions)}
 
-   ## Installation
-   ${genInstallation(questions)}
+// ## Usage
+// 
 
-  // ## Usage
-  // 
+// ## Contributing
+//
 
-  // ## Contributing
-  //
+// ## Tests
+// 
 
-  // ## Tests
-  // 
+// ## Features
+//
 
-  // ## Features
-  //
+// ## Credits
 
-  // ## Credits
+// ## License
 
-  // ## License
-
-  // ## Questions
+// ## Questions
 
 `;
 };
