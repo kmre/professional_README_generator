@@ -62,7 +62,8 @@ const multiQ1 = [
       {
         type: 'input',
         name: 'usage',
-        message: 'Please provide instructions and examples for use. (Required) \n',
+        message: 'Please provide instructions and examples for use. (Required) \n' +
+        'If you want to start a new paragraph just type "/n" \n',
         validate: nameInput => {
           if (nameInput) {
             return true;
@@ -75,7 +76,7 @@ const multiQ1 = [
    // ]    
 
   //  const multiQ3 = [
-     /* {
+      {
         type: 'confirm',
         name: 'confirmCredits',
         message: 'Do you want to add any collaborators or did you use any third-party assets you want to credit? \n',
@@ -92,18 +93,19 @@ const multiQ1 = [
         name: 'creditsGit',
         message: 'Enter the git username of your collaborators or url of third-party assets: \n',
         when: ({ confirmCredits }) => confirmCredits
-      },*/
-    //   {
-    //     type: 'confirm',
-    //     name: 'confirmQ3',
-    //     message: 'Would you like to enter another collaborator/asset? \n',
-    //     when: ({ confirmCredits }) => confirmCredits,
-    //     default: false
-    //   }
+      },
+       /* NEED MORE TIME TO PLAY WITH THIS{
+         type: 'confirm',
+         name: 'confirmQ3',
+         message: 'Would you like to enter another collaborator/asset? \n',
+         when: ({ confirmCredits }) => confirmCredits,
+         default: false
+       },*/
+
    // ]
 
    // const multiQ4 = [
-       /* {
+        {
             type: 'confirm',
             name: 'confirmContributing',
             message: 'Do you want other developers to contribute to your application? \n',
@@ -112,13 +114,14 @@ const multiQ1 = [
         {
             type: 'input',
             name: 'contributing',
-            message: 'Add the guidelines you would like for them to follow: \n',
+            message: 'Add the guidelines you would like for them to follow: \n' +
+            'If you want to start a new step just type "/n" \n',
             when: ({ confirmContributing }) => confirmContributing
-        },*/
+        },
   //  ]
 
    // const multiQ5 = [
-    /*{
+    {
         type: 'confirm',
         name: 'confirmFeatures',
         message: 'Do you want to add any features to you README file? \n',
@@ -127,13 +130,14 @@ const multiQ1 = [
     {
         type: 'input',
         name: 'features',
-        message: 'Enter key features of your project: \n',
+        message: 'Enter key features of your project: \n' +
+        'If you want to start a new step just type "/n" \n',
         when: ({ confirmFeatures }) => confirmFeatures
-    },*/
+    },
    // ]
 
     //const multiQ6 = [
-    /*{
+    {
         type: 'confirm',
         name: 'confirmTests',
         message: 'Do you want other developers to test your application or do you have examples of tests you have performed? \n',
@@ -142,9 +146,10 @@ const multiQ1 = [
     {
         type: 'input',
         name: 'tests',
-        message: 'Provide examples on how to run them: \n',
+        message: 'Provide examples on how to run them: \n' +
+        'If you want to start a new step just type "/n" \n',
         when: ({ confirmTests }) => confirmTests
-    },*/
+    },
   //  ]
 
    // const multiQ7 = [
