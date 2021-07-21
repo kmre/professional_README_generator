@@ -94,76 +94,55 @@ return `${featureSteps}`
 }
 return ``
 }
-
-const genUser = (questions) => {
-return `
-${questions
-.map(({username}) => {
-let newUser = align(username, 3);
-return `${newUser}`
-;})
-}`
-}
-
-const genEmail = (questions) => {
-return `
-${questions
-.map(({email}) => {
-let newEmail = align(email, 3);
-return `${newEmail}`
-;})
-}`
-}
-const genCreditsN = (questions) => {
+const genCredits = (questions) => {
 if (`${questions.filter(({confirmCredits}) => confirmCredits)}`){
 return `
 ${questions
-.map(({creditsName}) => {
+.map(({creditsName, creditsGit}) => {
 let name = creditsName;
-return `${name}`
+let git = creditsGit;
+return `
+|Git Username| Git URL|
+|------------| -------|
+|${name}|${git}|`
 ;})
 }`
 }
 return ``
 }
-const genCreditsU = (questions) => {
-if (`${questions.filter(({confirmCredits}) => confirmCredits)}`){
+const genQuestions = (questions) => {
 return `
 ${questions
-.map(({creditsGit}) => {
-let name = creditsGit;
-return `${name}`
+.map(({username, email}) => {
+let name = username;
+let mail = email;
+return `
+|Git Username|Email Address :e-mail: |
+|------------|-----------------------|
+|${name}|${mail}|`
 ;})
 }`
 }
-return ``
-}
-
-// const genInstallation = (questions) => {
-//     console.log(questions)
-//     // vv if yes on special instructions for installation
-//     return `
-//       ${questions
-//         .filter(({confirmInstallation}) => confirmInstallation)
-//         .map(({usage, email}) => {
-//           return `
-//             ${usage}
-//             ${email}
-//         `;
-//         })
-//         }
-
-//       ${questions
-//         .filter(({confirmInstallation}) => !confirmInstallation)
-//         .map(({  }) => {
-
-//           return `
-//         `;
-//         })
-//         }
-//   `;
-//         //^^ if no on special instructions for installation
+// const genUser = (questions) => {
+// return `
+// ${questions
+// .map(({username}) => {
+// let newUser = align(username, 3);
+// return `${newUser}`
+// ;})
+// }`
 // }
+
+// const genEmail = (questions) => {
+// return `
+// ${questions
+// .map(({email}) => {
+// let newEmail = align(email, 3);
+// return `${newEmail}`
+// ;})
+// }`
+// }
+
 
 module.exports = markData => {
 const {title, description, questions} = markData;
@@ -175,8 +154,12 @@ let newDescription = align(description.replace(/\/n /gi, "\n\n"), 3);
 return `
 # ${newTitle}
 
+---
+
 ## Description
 ${newDescription}
+
+---
 
 ## Table of Contents
 
@@ -189,38 +172,49 @@ ${newDescription}
 * [License](#license)
 * [Questions](#questions)
 
+---
+
 ## Installation
 ${genInstallation(questions)}
+
+---
 
 ## Usage
 ${genUsage(questions)}
 
+---
+
 ## Contributing
 ${genCont(questions)}
+
+---
 
 ## Tests
 ${genTests(questions)} 
 
+---
+
 ## Features
 ${genFeature(questions)}
 
+---
+
 ## Credits
 
-| Git Username | Git URL |
-| ------------ | ------- |
-| ${genCreditsN(questions)} | ${genCreditsU(questions)} |
+${genCredits(questions)}
+
+---
 
 ## License
+
+---
 
 ## Questions
 
 ### Contact information:
 
-**Github Username:**
-${genUser(questions)}
+${genQuestions(questions)}
 
-:e-mail: **User's Email:**
-${genEmail(questions)}
-
+---
 `;
 };
