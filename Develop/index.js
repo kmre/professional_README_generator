@@ -153,14 +153,14 @@ const multiQ1 = [
   //  ]
 
    // const multiQ7 = [
-    /*{
+    {
         type: 'checkbox',
         name: 'licenses',
         message: 'What licenses did you use? (Check all that apply)',
-        choices: ['MIT', 'Apache', 'GPL', 'BSD', 'Apache 2', 'Other']
+        choices: ['MIT', 'Apache', 'GPL', 'BSD', 'Apache_2', 'Other']
         //https://img.shields.io/static/v1?label=<LABEL>&message=<MESSAGE>&color=<COLOR>
         //future if they select other to then ask which
-    },*/
+    },
   //  ]
 
     //license needs to be a list when one is picked then it's made into a badge
