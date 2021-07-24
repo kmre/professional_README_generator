@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 
 const inquirer = require('inquirer');
+const EditorPrompt = require('inquirer/lib/prompts/editor');
 const generateReadMe = require('./src/readme-template');
 const generateMarkdown = require('./utils/generateMarkdown');
 const { writeFile, copyFile } = require('./utils/generateMarkdown');
@@ -10,8 +11,8 @@ const mainQuestions = [
         type: 'input',
         name: 'title',
         message: 'What is the Title of your README file? (Required) \n',
-        validate: nameInput => {
-          if (nameInput) {
+        validate: input => {
+          if (input) {
             return true;
           } else {
             console.log('Please enter a Title! \n');
@@ -20,12 +21,12 @@ const mainQuestions = [
         }
       },
       {
-        type: 'input',
+        type: 'editor',
+        /*type: 'input',*/
         name: 'description',
-        message: 'Please enter a short description explaining the what, why, and how of your project (Required) \n' +
-        'If you want to start a new paragraph just type "/n" \n',
-        validate: nameInput => {
-          if (nameInput) {
+        message: 'Please enter a short description explaining the what, why, and how of your project (Required) \n', 
+        validate: input => {
+          if (input) {
             return true;
           } else {
             console.log('Please enter a short description! \n');
@@ -43,11 +44,18 @@ const multiQ1 = [
         default: true
       },
       {
-        type: 'input',
+        type: 'editor',
         name: 'installationStep',
-        message: 'What are the steps required to install your project? \n' +
-        'If you want to start a new step just type "/n" \n',
-        when: ({ confirmInstallation }) => confirmInstallation
+        message: 'What are the steps required to install your project? \n',
+        when: ({ confirmInstallation }) => confirmInstallation,
+        validate: input => {
+            if (input) {
+              return true;
+            } else {
+              console.log('Answer can not be left blank! \n');
+              return false;
+            }
+          }
       },
     //   {
     //     type: 'confirm',
@@ -60,12 +68,11 @@ const multiQ1 = [
 
    // const multiQ2 = [
       {
-        type: 'input',
+        type: 'editor',
         name: 'usage',
-        message: 'Please provide instructions and examples for use. (Required) \n' +
-        'If you want to start a new paragraph just type "/n" \n',
-        validate: nameInput => {
-          if (nameInput) {
+        message: 'Please provide instructions and examples for use. (Required) \n',
+        validate: input => {
+          if (input) {
             return true;
           } else {
             console.log('Please enter a short list of instructions and uses! \n');
@@ -83,16 +90,32 @@ const multiQ1 = [
         default: true
       },
       {
-        type: 'input',
+        type: 'editor',
         name: 'creditsName',
         message: 'Enter the names of your collaborators or third-party assets: \n',
-        when: ({ confirmCredits }) => confirmCredits
+        when: ({ confirmCredits }) => confirmCredits,
+        validate: input => {
+            if (input) {
+              return true;
+            } else {
+              console.log('Answer can not be left blank! \n');
+              return false;
+            }
+          }
       },
       {
-        type: 'input',
+        type: 'editor',
         name: 'creditsGit',
-        message: 'Enter the git username of your collaborators or url of third-party assets: \n',
-        when: ({ confirmCredits }) => confirmCredits
+        message: 'Enter the git username of your collaborators or url of third-party assets:  \n',
+        when: ({ confirmCredits }) => confirmCredits,
+        validate: input => {
+            if (input) {
+              return true;
+            } else {
+              console.log('Answer can not be left blank! \n');
+              return false;
+            }
+          }
       },
        /* NEED MORE TIME TO PLAY WITH THIS{
          type: 'confirm',
@@ -112,11 +135,18 @@ const multiQ1 = [
             default: true
         },
         {
-            type: 'input',
+            type: 'editor',
             name: 'contributing',
-            message: 'Add the guidelines you would like for them to follow: \n' +
-            'If you want to start a new step just type "/n" \n',
-            when: ({ confirmContributing }) => confirmContributing
+            message: 'Add the guidelines you would like for them to follow: \n',
+            when: ({ confirmContributing }) => confirmContributing,
+            validate: input => {
+                if (input) {
+                  return true;
+                } else {
+                  console.log('Answer can not be left blank! \n');
+                  return false;
+                }
+              }
         },
   //  ]
 
@@ -128,11 +158,18 @@ const multiQ1 = [
         default: true
     },
     {
-        type: 'input',
+        type: 'editor',
         name: 'features',
-        message: 'Enter key features of your project: \n' +
-        'If you want to start a new step just type "/n" \n',
-        when: ({ confirmFeatures }) => confirmFeatures
+        message: 'Enter key features of your project: \n', 
+        when: ({ confirmFeatures }) => confirmFeatures,
+        validate: input => {
+            if (input) {
+              return true;
+            } else {
+              console.log('Answer can not be left blank! \n');
+              return false;
+            }
+          }
     },
    // ]
 
@@ -144,11 +181,18 @@ const multiQ1 = [
         default: true
     },
     {
-        type: 'input',
+        type: 'editor',
         name: 'tests',
-        message: 'Provide examples on how to run them: \n' +
-        'If you want to start a new step just type "/n" \n',
-        when: ({ confirmTests }) => confirmTests
+        message: 'Provide examples on how to run them: \n',
+        when: ({ confirmTests }) => confirmTests,
+        validate: input => {
+            if (input) {
+              return true;
+            } else {
+              console.log('Answer can not be left blank! \n');
+              return false;
+            }
+          }
     },
   //  ]
 

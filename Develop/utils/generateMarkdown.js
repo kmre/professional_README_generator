@@ -66,7 +66,7 @@ ${questions
           let steps = "";
           let newTest = tests.split("/n");
           newTest.forEach((item, index) => {
-            steps += (index + 1) + ". " + item.trim() + '\n'
+          steps += (index + 1) + ". " + item.trim() + '\n'
             //console.log(steps)
           })
           let testSteps = align(steps, 3);
@@ -88,7 +88,7 @@ ${questions
           let steps = "";
           let newFeature = features.split("/n");
           newFeature.forEach((item, index) => {
-            steps += (index + 1) + ". " + item.trim() + '\n'
+          steps += (index + 1) + ". " + item.trim() + '\n'
             //console.log(steps)
           })
           let featureSteps = align(steps, 3);
@@ -104,15 +104,19 @@ const genCredits = (questions) => {
     return `
 ${questions
         .map(({ creditsName, creditsGit }) => {
-          let name = creditsName;
-          let git = creditsGit;
-          return `
+          let name = creditsName.split("/n");
+          let git = creditsGit.split("/n");
+          let steps = "";
+          name.forEach((item, index) => {
+          steps += (index + 1) + ". " + item.trim() + '\n';  
+          })
+     return `
 |Git Username| Git URL|
 |------------| -------|
 |${name}|${git}|`
-            ;
+;
         })
-      }`
+  }`
   }
   return ``
 }
