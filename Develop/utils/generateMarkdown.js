@@ -7,15 +7,15 @@ const genInstallation = (questions) => {
     return `
 ${questions
         .map(({ installationStep }) => {
-          let steps = "";
+          //let steps = "";
           //let newInstStep = installationStep.replace(/\/n /gi, "\n");
-          let newInstStep2 = installationStep.split("/n");
-          newInstStep2.forEach((item, index) => {
-            steps += (index + 1) + ". " + item.trim() + '\n'
-            //console.log(steps)
-          })
-          let installSteps = align(steps, 3);
-          return `${installSteps}`
+          // let newInstStep2 = installationStep.split("/n");
+          // newInstStep2.forEach((item, index) => {
+          //   steps += (index + 1) + ". " + item.trim() + '\n'
+          //   //console.log(steps)
+          // })
+          // let installSteps = align(steps, 3);
+          return `${align(installationStep,3)}`
             ;
         })
       }`
@@ -27,8 +27,8 @@ const genUsage = (questions) => {
   return `
 ${questions
       .map(({ usage }) => {
-        let newUsage = align(usage.replace(/\/n /gi, "\n\n"), 3);
-        return `${newUsage}`
+        // let newUsage = align(usage.replace(/\/n /gi, "\n\n"), 3);
+        return `${align(usage,3)}`
           ;
       })
     }`
@@ -41,14 +41,14 @@ const genCont = (questions) => {
     return `
 ${questions
         .map(({ contributing }) => {
-          let steps = "";
-          let newCont = contributing.split("/n");
-          newCont.forEach((item, index) => {
-            steps += (index + 1) + ". " + item.trim() + '\n'
-            //console.log(steps)
-          })
-          let contSteps = align(steps, 3);
-          return `${contSteps}`
+          // let steps = "";
+          // let newCont = contributing.split("/n");
+          // newCont.forEach((item, index) => {
+          //   steps += (index + 1) + ". " + item.trim() + '\n'
+          //   //console.log(steps)
+          // })
+          // let contSteps = align(steps, 3);
+          return `${align(contributing,)}`
             ;
         })
       }`
@@ -63,14 +63,14 @@ const genTests = (questions) => {
     return `
 ${questions
         .map(({ tests }) => {
-          let steps = "";
-          let newTest = tests.split("/n");
-          newTest.forEach((item, index) => {
-          steps += (index + 1) + ". " + item.trim() + '\n'
-            //console.log(steps)
-          })
-          let testSteps = align(steps, 3);
-          return `${testSteps}`
+          // let steps = "";
+          // let newTest = tests.split("/n");
+          // newTest.forEach((item, index) => {
+          // steps += (index + 1) + ". " + item.trim() + '\n'
+          //   //console.log(steps)
+          // })
+          // let testSteps = align(steps, 3);
+          return `${align(tests,3)}`
             ;
         })
       }`
@@ -85,14 +85,14 @@ const genFeature = (questions) => {
     return `
 ${questions
         .map(({ features }) => {
-          let steps = "";
-          let newFeature = features.split("/n");
-          newFeature.forEach((item, index) => {
-          steps += (index + 1) + ". " + item.trim() + '\n'
-            //console.log(steps)
-          })
-          let featureSteps = align(steps, 3);
-          return `${featureSteps}`
+          // let steps = "";
+          // let newFeature = features.split("/n");
+          // newFeature.forEach((item, index) => {
+          // steps += (index + 1) + ". " + item.trim() + '\n'
+          //   //console.log(steps)
+          // })
+          // let featureSteps = align(steps, 3);
+          return `${align(features, 3)}`
             ;
         })
       }`
@@ -104,16 +104,16 @@ const genCredits = (questions) => {
     return `
 ${questions
         .map(({ creditsName, creditsGit }) => {
-          let name = creditsName.split("/n");
-          let git = creditsGit.split("/n");
-          let steps = "";
-          name.forEach((item, index) => {
-          steps += (index + 1) + ". " + item.trim() + '\n';  
-          })
+          // let name = creditsName.split("/n");
+          // let git = creditsGit.split("/n");
+          // let steps = "";
+          // name.forEach((item, index) => {
+          // steps += (index + 1) + ". " + item.trim() + '\n';  
+          // })
      return `
 |Git Username| Git URL|
 |------------| -------|
-|${name}|${git}|`
+|${creditsName}|${creditsGit}|`
 ;
         })
   }`
@@ -157,7 +157,7 @@ module.exports = markData => {
   //console.log("Questions: ")
   //console.log(questions)
   let newTitle = align(title.trim(), 0)
-  let newDescription = align(description.replace(/\/n /gi, "\n\n"), 3);
+  let newDescription = align(description, 3);
 
   return `
 # ${newTitle}
