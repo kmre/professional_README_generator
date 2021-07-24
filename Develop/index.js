@@ -90,6 +90,7 @@ const multiQ1 = [
             }
           },
       },
+      //Still having issues with how to link the name with the github....
       {
         type: 'editor',
         name: 'creditsGit',
