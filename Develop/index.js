@@ -36,7 +36,7 @@ const mainQuestions = [
       }
 ];
 
-const multiQ1 = [
+/*const multiQ1 = [
       {
         type: 'confirm',
         name: 'confirmInstallation',
@@ -70,41 +70,41 @@ const multiQ1 = [
           }
         }
       },
-      {
-        type: 'confirm',
-        name: 'confirmCredits',
-        message: 'Do you want to add any collaborators or did you use any third-party assets you want to credit? \n',
-        default: true
-      },
-      {
-        type: 'editor',
-        name: 'creditsName',
-        message: 'Enter the names of your collaborators or third-party assets: \n',
-        when: ({ confirmCredits }) => confirmCredits,
-        validate: input => {
-            if (input) {
-              return true;
-            } else {
-              console.log('Answer can not be left blank! \n');
-              return false;
-            }
-          },
-      },
-      //Still having issues with how to link the name with the github....
-      {
-        type: 'editor',
-        name: 'creditsGit',
-        message: 'Enter the git username of your collaborators or url of third-party assets:  \n',
-        when: ({ confirmCredits }) => confirmCredits,
-        validate: input => {
-            if (input) {
-              return true;
-            } else {
-              console.log('Answer can not be left blank! \n');
-              return false;
-            }
-          }
-      },
+    //   {
+    //     type: 'confirm',
+    //     name: 'confirmCredits',
+    //     message: 'Do you want to add any collaborators or did you use any third-party assets you want to credit? \n',
+    //     default: true
+    //   },
+    //   {
+    //     type: 'editor',
+    //     name: 'creditsName',
+    //     message: 'Enter the names of your collaborators or third-party assets: \n',
+    //     when: ({ confirmCredits }) => confirmCredits,
+    //     validate: input => {
+    //         if (input) {
+    //           return true;
+    //         } else {
+    //           console.log('Answer can not be left blank! \n');
+    //           return false;
+    //         }
+    //       },
+    //   },
+    //   //Still having issues with how to link the name with the github....
+    //   {
+    //     type: 'editor',
+    //     name: 'creditsGit',
+    //     message: 'Enter the git username of your collaborators or url of third-party assets:  \n',
+    //     when: ({ confirmCredits }) => confirmCredits,
+    //     validate: input => {
+    //         if (input) {
+    //           return true;
+    //         } else {
+    //           console.log('Answer can not be left blank! \n');
+    //           return false;
+    //         }
+    //       }
+    //   },
 
         {
             type: 'confirm',
@@ -202,6 +202,51 @@ const multiQ1 = [
           }
         }
       },
+    ]*/
+    const multiQ2 = [
+        // {
+        //     type: 'confirm',
+        //     name: 'confirmCredits',
+        //     message: 'Do you want to add any collaborators or did you use any third-party assets you want to credit? \n',
+        //     default: true
+        //   },
+          {
+            //type: 'editor',
+            type: 'input',
+            name: 'creditsName',
+            message: 'Enter the names of your collaborators or third-party assets: \n',
+            //when: ({ confirmCredits }) => confirmCredits,
+            validate: input => {
+                if (input) {
+                  return true;
+                } else {
+                  console.log('Answer can not be left blank! \n');
+                  return false;
+                }
+              },
+          },
+          //Still having issues with how to link the name with the github....
+          {
+            //type: 'editor',
+            type: 'input',
+            name: 'creditsGit',
+            message: 'Enter the git username of your collaborators or url of third-party assets:  \n',
+            //when: ({ confirmCredits }) => confirmCredits,
+            validate: input => {
+                if (input) {
+                  return true;
+                } else {
+                  console.log('Answer can not be left blank! \n');
+                  return false;
+                }
+              }
+          },
+          {
+            type: 'confirm',
+            name: 'confirmMore',
+            message: 'Do you want to add another collabolator? \n',
+            default: true
+            },
     ]
 
 
@@ -222,7 +267,7 @@ const init = () => {
     ); 
  
 }
-//Only Q1 and Q3 could have multiple entries
+
 //Prompt for multiple steps in instructions
 const promptQ1 = mainData => {
     // If there's no 'questions' array property, create one
@@ -240,16 +285,66 @@ const promptQ1 = mainData => {
 
 };
 
+//Prompt for multiple steps in instructions
+const promptQ2 = mainData => {
+    // If there's no 'questions' array property, create one
+    if (!mainData.questions) {
+        mainData.questions = [];
+    }
+    return inquirer.prompt(
+        [
+            {
+                type: 'confirm',
+                name: 'confirmCredits',
+                message: 'Do you want to add any collaborators or did you use any third-party assets you want to credit? \n',
+                default: true
+            },
+        ]
+    )
+    .then((data) => {
+
+        if (data.confirmCredits) {
+            collabs(multiQ2, mainData.questions)
+        }
+    })
+}
+
+const collabs = (questions, array) => {
+    return inquirer.prompt(
+        questions
+    )
+      .then(multiData => {
+          console.log(multiData)
+          const {creditsName, creditsGit} = multiData;
+          console.log("------------------")
+          console.log(creditsName) 
+          console.log(creditsGit)
+          console.log("---------------")
+        
+        array.push(multiData)
+        console.log(array)
+        if (multiData.confirmMore) {
+            collabs(questions,array)
+        }
+
+       // mainData.questions.push(multiData);
+       // return mainData;
+      })
+
+
+}
+
 
 // Function call to initialize app
  init()
  .then(promptQ1)
- .then(mainData => {
+ .then(promptQ2)
+ /*.then(mainData => {
      //console.log(mainData)
     return generateMarkdown(mainData);
  })
  .then(readMe => {
    console.log("readme: ")
     console.log(readMe)
- })
+ })*/
 
