@@ -1,10 +1,8 @@
 // TODO: Include packages needed for this application
-
 const inquirer = require('inquirer');
-const EditorPrompt = require('inquirer/lib/prompts/editor');
-const generateReadMe = require('./src/readme-template');
 const generateMarkdown = require('./utils/generateMarkdown');
-const { writeFile, copyFile } = require('./utils/generateMarkdown');
+const {writeFile} = require('./src/readme-template');
+
 // TODO: Create an array of questions for user input
 const mainQuestions = [
     {
@@ -330,9 +328,6 @@ const multiQ2 = [
     },
 ]
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) { }
-
 const init = () => {
     console.log(`
     =================
@@ -408,18 +403,18 @@ const collabs = (questions, mainData) => {
 // Function call to initialize app
 init()
     .then(promptQ2)
-    // .then(mainData => {
-    //     console.log(mainData)
-    //     console.log("------Q2")
-    //     return promptQ2(mainData)
-    // })
     .then(mainData => {
-       // console.log("-------last")
-       // console.log(mainData)
         return generateMarkdown(mainData);
     })
- .then(readMe => {
- //console.log("readme:------------------------- ")
-  //console.log(readMe)
+ .then(readme => {
+     return writeFile(readme);
+
 })
+    .then(writeReturn => {
+        console.log(writeReturn)
+    })
+    .catch((error) => {
+        console.log(error)
+    });
+
 
