@@ -416,10 +416,10 @@ init()
     .then(mainData => {
         console.log("-------last")
         console.log(mainData)
-        //return generateMarkdown(mainData);
+        return generateMarkdown(mainData);
     })
- /*.then(readMe => {
- console.log("readme: ")
+ .then(readMe => {
+ console.log("readme:------------------------- ")
   console.log(readMe)
-})*/
+})
 
