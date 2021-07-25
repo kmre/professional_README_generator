@@ -330,9 +330,9 @@ const multiQ2 = [
 
 const init = () => {
     console.log(`
-    =================
-    Main Questions
-    =================
+    ======================
+    Creating a README File
+    ======================
     `);
     return inquirer.prompt(
         mainQuestions
@@ -375,7 +375,7 @@ const promptQ2 = mainData => {
                 //console.log("-------")
                 return collabs(multiQ2, mainData);
             }
-            else {console.log("exitloop")
+            else {//console.log("exitloop")
             return mainData
             }
         })
@@ -408,7 +408,6 @@ init()
     })
  .then(readme => {
      return writeFile(readme);
-
 })
     .then(writeReturn => {
         console.log(writeReturn)

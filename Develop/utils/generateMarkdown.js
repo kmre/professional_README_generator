@@ -75,8 +75,8 @@ const genLicense = (questions) => {
         let license = "";
         let url = "https://img.shields.io/static/v1?label=license&message="
         let color = "&color=green"
-        console.log("licence-------------------------------")
-        console.log(questions.licenses)
+       // console.log("licence-------------------------------")
+        //console.log(questions.licenses)
         questions.licenses.forEach((item, index) => {
         license += "![item](" + url + item + color + ") ";
        // console.log(license)
