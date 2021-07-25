@@ -30,7 +30,7 @@
 ---
 
 ## Installation
-
+[Git repo link](https://github.com/kmre/professional_README_generator.git)
 
 ---
 
@@ -53,7 +53,9 @@ on the terminal
 ---
 
 ## Tests
- 
+[This link will take you to Test video #1](https://drive.google.com/file/d/1SYonQtxWAR4HIL6QjppKazV5geGLh68V/view) 
+
+[This link will take you to Test video #2](https://drive.google.com/file/d/1IBhHEcP8aWDElI-xHwdpwySUmGc-B1Em/view) 
 
 ---
 
