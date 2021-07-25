@@ -33,7 +33,135 @@ const mainQuestions = [
                 return false;
             }
         }
-    }
+    },
+    {
+        type: 'input',
+        name: 'username',
+        message: 'What is your GitHub username? (Required) \n',
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log('Please enter your username! \n');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'What is your email address? (Required) \n',
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log('Please enter your email address! \n');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'confirm',
+        name: 'confirmInstallation',
+        message: 'Does your project require special instructions for installation? \n',
+        default: true
+    },
+    {
+        type: 'editor',
+        name: 'installationStep',
+        message: 'What are the steps required to install your project? \n',
+        when: ({ confirmInstallation }) => confirmInstallation,
+        validate: input => {
+            if (input) {
+                return true;
+            } else {
+                console.log('Answer can not be left blank! \n');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'editor',
+        name: 'usage',
+        message: 'Please provide instructions and examples for use. (Required) \n',
+        validate: input => {
+            if (input) {
+                return true;
+            } else {
+                console.log('Please enter a short list of instructions and uses! \n');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'confirm',
+        name: 'confirmContributing',
+        message: 'Do you want other developers to contribute to your application? \n',
+        default: true
+    },
+    {
+        type: 'editor',
+        name: 'contributing',
+        message: 'Add the guidelines you would like for them to follow: \n',
+        when: ({ confirmContributing }) => confirmContributing,
+        validate: input => {
+            if (input) {
+                return true;
+            } else {
+                console.log('Answer can not be left blank! \n');
+                return false;
+            }
+        }
+    },
+
+    {
+        type: 'confirm',
+        name: 'confirmFeatures',
+        message: 'Do you want to add any features to you README file? \n',
+        default: true
+    },
+    {
+        type: 'editor',
+        name: 'features',
+        message: 'Enter key features of your project: \n',
+        when: ({ confirmFeatures }) => confirmFeatures,
+        validate: input => {
+            if (input) {
+                return true;
+            } else {
+                console.log('Answer can not be left blank! \n');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'confirm',
+        name: 'confirmTests',
+        message: 'Do you want other developers to test your application or do you have examples of tests you have performed? \n',
+        default: true
+    },
+    {
+        type: 'editor',
+        name: 'tests',
+        message: 'Provide examples on how to run them: \n',
+        when: ({ confirmTests }) => confirmTests,
+        validate: input => {
+            if (input) {
+                return true;
+            } else {
+                console.log('Answer can not be left blank! \n');
+                return false;
+            }
+        }
+    },
+    {
+        type: 'checkbox',
+        name: 'licenses',
+        message: 'What licenses did you use? (Check all that apply)',
+        choices: ['MIT', 'Apache', 'GPL', 'BSD', 'Apache_2', 'Other']
+        //https://img.shields.io/static/v1?label=<LABEL>&message=<MESSAGE>&color=<COLOR>
+        //future if they select other to then ask which
+    },
 ];
 
 const multiQ1 = [
@@ -208,7 +336,7 @@ function writeToFile(fileName, data) { }
 const init = () => {
     console.log(`
     =================
-    Title and Description
+    Main Questions
     =================
     `);
     return inquirer.prompt(
@@ -233,6 +361,9 @@ const promptQ1 = mainData => {
 
 //Prompt for multiple collaborators
 const promptQ2 = mainData => {
+    if (!mainData.credits) {
+        mainData.credits = [];
+    }
     return inquirer.prompt(
         [
             {
@@ -245,7 +376,6 @@ const promptQ2 = mainData => {
                 // If there's no 'questions' array property, create one
 
             if (confirm.confirmCredits) {
-                mainData.questions.credits = [];
                 console.log(mainData)
                 console.log("-------")
                 return collabs(multiQ2, mainData);
@@ -264,12 +394,12 @@ const collabs = (questions, mainData) => {
         .then(multiData => {
             console.log(multiData)
             console.log("--------------- multi")
-            mainData.questions.credits.push(multiData)
+            mainData.credits.push(multiData)
             if (multiData.confirmMore) {
                return collabs(questions, mainData)
             }
             else {
-                console.log(mainData.questions.credits)
+                console.log(mainData.credits)
                 return mainData;
             }
         });
@@ -277,12 +407,12 @@ const collabs = (questions, mainData) => {
 
 // Function call to initialize app
 init()
-    .then(promptQ1)
-    .then(mainData => {
-        console.log(mainData)
-        console.log("------Q2")
-        return promptQ2(mainData)
-    })
+    .then(promptQ2)
+    // .then(mainData => {
+    //     console.log(mainData)
+    //     console.log("------Q2")
+    //     return promptQ2(mainData)
+    // })
     .then(mainData => {
         console.log("-------last")
         console.log(mainData)
