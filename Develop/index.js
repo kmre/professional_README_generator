@@ -376,8 +376,8 @@ const promptQ2 = mainData => {
                 // If there's no 'questions' array property, create one
 
             if (confirm.confirmCredits) {
-                console.log(mainData)
-                console.log("-------")
+                //console.log(mainData)
+                //console.log("-------")
                 return collabs(multiQ2, mainData);
             }
             else {console.log("exitloop")
@@ -414,12 +414,12 @@ init()
     //     return promptQ2(mainData)
     // })
     .then(mainData => {
-        console.log("-------last")
-        console.log(mainData)
+       // console.log("-------last")
+       // console.log(mainData)
         return generateMarkdown(mainData);
     })
  .then(readMe => {
- console.log("readme:------------------------- ")
-  console.log(readMe)
+ //console.log("readme:------------------------- ")
+  //console.log(readMe)
 })
 

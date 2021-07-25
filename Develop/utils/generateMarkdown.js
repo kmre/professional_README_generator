@@ -51,22 +51,37 @@ ${questions.features}
 }
 const genCredits = (questions) => {
   if (questions.credits.length) {
+    //console.log(questions.credits.length)
+    //console.log(questions.credits)
+    //console.log(questions)
+    //console.log("================")
+    let credit = "";
+    questions.credits.forEach(item => {
+      let name = item.creditsName
+      let git = item.creditsGit
+      credit += "|Name: " + name + "| Url: " + git + "| \n";
+    });
+   // console.log(credit)
     return `
-${questions.creditsName} ${questions.creditsGit }
+|Git Username|Git URL|
+|------------|-----------------------|
+${credit}
 `
 }
+//console.log(questions.credits.length)
   return ``
 }
 const genLicense = (questions) => {
         let license = "";
         let url = "https://img.shields.io/static/v1?label=license&message="
         let color = "&color=green"
+        console.log("licence-------------------------------")
         console.log(questions.licenses)
         questions.licenses.forEach((item, index) => {
         license += "![item](" + url + item + color + ") ";
+       // console.log(license)
+        })
         return `${license}`
-        ;
-      })
 }
 
 const genQuestions = (questions) => {
@@ -81,13 +96,13 @@ return `
 
 module.exports = markData => {
   const { title, description, ...questions } = markData;
-  console.log("Questions:------------------ ")
-  console.log(questions)
-  console.log(title)
-  console.log("===============")
-  console.log(questions.username)
-  console.log("---------------MD")
-  console.log(markData)
+ // console.log("Questions:------------------ ")
+ // console.log(questions)
+  //console.log(title)
+ // console.log("===============")
+  //console.log(questions.username)
+ // console.log("---------------MD")
+ // console.log(markData)
   let newTitle = align(title.trim(), 0)
   let newDescription = align(description, 3);
 
